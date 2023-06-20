@@ -1,17 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	var a string
-	fmt.Scan(&a)
-
-	ans := 0
-
-	for i := range a {
-		if a[i] == '1' {
-			ans++
-		}
-	}
-	fmt.Println(ans)
+	var a, b, c int
+	var s string
+	fmt.Scanf("%d", &a)
+	fmt.Scanf("%d %d", &b, &c)
+	fmt.Scanf("%s", &s)
+	fmt.Printf("%d %s\n", a+b+c, s)
 }
