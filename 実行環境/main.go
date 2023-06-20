@@ -2,31 +2,37 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 func main() {
 	var n int
-	var a, b int
+	fmt.Scan(&n)
 
-	fmt.Scan(&n, &a, &b)
+	card := make([]int, n)
+	for i := 0; i < n; i++ {
+		fmt.Scan(&card[i])
+	}
 
-	ans := 0
+	fmt.Println(card)
 
-	for i := 1; i <= n; i++ {
-		num := i
-		total := 0
+	sort.Slice(card, func(i, j int) bool { return card[i] > card[j] })
 
-		for num > 0 {
-			temp := num % 10
-			total += temp
-			num /= 10
-		}
+	fmt.Println(card)
 
-		if a <= total && total <= b {
-			ans += i
+	var alice, bob int
+
+	for i := 0; i < n; i++ {
+		if i%2 == 0 {
+			fmt.Println("alice")
+			fmt.Println(card[i])
+			alice += card[i]
+		} else {
+			fmt.Println("bob")
+			fmt.Println(card[i])
+			bob += card[i]
 		}
 	}
 
-	fmt.Println(ans)
-
+	fmt.Println(alice - bob)
 }
