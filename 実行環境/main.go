@@ -1,34 +1,32 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"math"
-	"os"
-	"strconv"
-	"strings"
 )
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
-	input, _ := reader.ReadString('\n')
-	input = strings.TrimSuffix(input, "\n")
+	var n int
+	var a, b int
 
-	// 入力文字列をスペースで分割して配列に格納
-	strNumbers := strings.Split(input, " ")
+	fmt.Scan(&n, &a, &b)
 
-	var numbers []int
-	for _, strNum := range strNumbers {
-		num, _ := strconv.Atoi(strNum)
-		numbers = append(numbers, num)
+	ans := 0
+
+	for i := 1; i <= n; i++ {
+		num := i
+		total := 0
+
+		for num > 0 {
+			temp := num % 10
+			total += temp
+			num /= 10
+		}
+
+		if a <= total && total <= b {
+			ans += i
+		}
 	}
 
-	var ans uint64
-	ans = 0
+	fmt.Println(ans)
 
-	for i, v := range numbers {
-		ans += uint64(v) * uint64(math.Pow(2, float64(i)))
-	}
-
-	fmt.Println(uint64(ans))
 }
