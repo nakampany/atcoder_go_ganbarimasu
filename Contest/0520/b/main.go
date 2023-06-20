@@ -12,6 +12,7 @@ func main() {
 		for j := range arr[i] {
 			fmt.Scan(&arr[i][j])
 		}
+	}
 
 	words := []string{"s", "n", "u", "k", "e"}
 
