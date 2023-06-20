@@ -6,27 +6,20 @@ func main() {
 	var n int
 	fmt.Scan(&n)
 
-	b := false
-	count := 0
+	var card []int
+	fmt.Scan(&card)
 
-	a := make([]int, n)
-	for i := 0; i < n; i++ {
-		fmt.Scan(&a[i])
-	}
+	fmt.Println(card)
 
-	for b == false {
-		c1 := 0
-		for i := range a {
-			if a[i]%2 == 0 {
-				a[1] /= 2
-				c1++
-			}
-		}
-		if c1 == n {
-			b = true
-		} else {
-			count++
-		}
-	}
-	fmt.Println(count)
+	// var alice, bob int
+
+	// for i := 0; i < n; i++ {
+	// 	if i%2 == 0 {
+	// 		bob += card[i]
+	// 	} else {
+	// 		alice += card[i]
+	// 	}
+	// }
+
+	// fmt.Println(bob - alice)
 }
