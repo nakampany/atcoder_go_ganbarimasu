@@ -1,12 +1,17 @@
 https://atcoder.jp/contests/abs/tasks
 
 - PracticeA Welcome to AtCoder
+- ABC086A Product
 ```
 単純な足し算
 ```
-- ABC086A Product
-
 - ABC081A Placing Marbles
+```
+a*bが偶数だったら、Even
+a*bが奇数だったら、Odd
+
+a*b%2 == 0
+```
 - ABC081B Shift only
 - ABC087B Coins
 - ABC083B Some Sums
