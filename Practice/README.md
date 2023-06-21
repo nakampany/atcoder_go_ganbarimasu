@@ -14,6 +14,18 @@ a*b%2 == 0
 ```
 - ABC081B Shift only
 ```
+奇数が見つかるまで、for文で回す
+
+	for {
+		for i := 0; i < n; i++ {
+			if a[i]%2 == 1 {
+				return
+			}
+			a[i] /= 2
+		}
+		count++
+	}
+
 ```
 - ABC087B Coins
 ```
@@ -44,8 +56,8 @@ for i := 0; i <= a; i++ {
 a1,a2,a3...aN
 
 ```
-	card := make([]int, n)
+	a := make([]int, n)
 	for i := 0; i < n; i++ {
-		fmt.Scan(&card[i])
+		fmt.Scan(&a[i])
 	}
 ```
