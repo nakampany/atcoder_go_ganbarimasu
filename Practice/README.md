@@ -52,7 +52,25 @@ for i := 0; i <= a; i++ {
 ```
 - ABC088B Card Game for Two
 ```
+降順でソートして、Aliceが最初に引く
 
+	sort.Slice(card, func(i, j int) bool { return card[i] > card[j] })
+
+	fmt.Println(card)
+
+	var alice, bob int
+
+	for i := 0; i < n; i++ {
+		if i%2 == 0 {
+			fmt.Println("alice")
+			fmt.Println(card[i])
+			alice += card[i]
+		} else {
+			fmt.Println("bob")
+			fmt.Println(card[i])
+			bob += card[i]
+		}
+	}
 ```
 - ABC085B Kagami Mochi
 ```
