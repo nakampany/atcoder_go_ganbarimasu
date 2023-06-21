@@ -3,7 +3,7 @@ https://atcoder.jp/contests/abs/tasks
 - PracticeA Welcome to AtCoder
 - ABC086A Product
 ```
-単純な足し算
+文字列の１をカウント
 ```
 - ABC081A Placing Marbles
 ```
