@@ -42,12 +42,33 @@ for i := 0; i <= a; i++ {
 ```
 - ABC083B Some Sums
 ```
+桁の足し算
+
+		for num > 0 {
+			total += num % 10
+			num /= 10
+		}
+
 ```
 - ABC088B Card Game for Two
 ```
+
 ```
 - ABC085B Kagami Mochi
 ```
+配列内の同じものを削除する
+新しい配列に格納
+	t := make([]int, n)
+	for i := 0; i < n; i++ {
+		fmt.Scan(&t[i])
+	}
+ 
+	se := make(map[int]bool)
+	for i := 0; i < n; i++ {
+		se[t[i]] = true
+	}
+	ans := len(se)
+	fmt.Println(ans)
 ```
 - ABC085C Otoshidama
 - ABC049C 白昼夢
