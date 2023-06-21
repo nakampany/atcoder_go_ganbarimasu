@@ -17,8 +17,6 @@ func main() {
 
 	ans := 0
 
-	x = x - 500*a - 100*b - 50*c
-
 	if x == 0 {
 		ans++
 	} else {
