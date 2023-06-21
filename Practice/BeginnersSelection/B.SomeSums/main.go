@@ -1,19 +1,32 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	num := 1897
-	total := 0
+	var n int
+	var a, b int
 
-	for num > 0 {
-		temp := num % 10
-		total += temp
-		num /= 10
-		fmt.Println(temp)
-		// fmt.Println(num)
-		// fmt.Println(total)
+	fmt.Scan(&n, &a, &b)
+
+	ans := 0
+
+	for i := 1; i <= n; i++ {
+		num := i
+		total := 0
+
+		for num > 0 {
+			temp := num % 10
+			total += temp
+			num /= 10
+		}
+
+		if a <= total && total <= b {
+			ans += i
+		}
 	}
 
-	fmt.Println(total)
+	fmt.Println(ans)
+
 }
