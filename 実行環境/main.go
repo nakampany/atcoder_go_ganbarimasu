@@ -1,35 +1,27 @@
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-)
+import "fmt"
 
 func main() {
-	var n int
-	var s string
-	sc := bufio.NewScanner(os.Stdin)
-	sc.Split(bufio.ScanWords)
-	sc.Scan()
-	fmt.Sscan(sc.Text(), &n)
-	sc.Scan()
-	s = sc.Text()
+	var n, y int
+	fmt.Scan(&n, &y)
 
-	stack := make([]int, 0)
-	sBytes := []byte(s)
-	for i := 0; i < len(sBytes); i++ {
-		if sBytes[i] == '(' {
-			stack = append(stack, i)
-		} else if sBytes[i] == ')' {
-			if len(stack) > 0 {
-				start := stack[len(stack)-1]
-				stack = stack[:len(stack)-1]
-				sBytes = append(sBytes[:start], sBytes[i+1:]...)
-				i = start - 1
+	var N_1000 int
+	var N_5000 int
+	var N_10000 int
+
+	for i := 0; i <= n; i++ {
+		for j := 0; j <= n; j++ {
+			k := n - i - j
+			if 10000*i+5000*j+1000*k == y && k >= 0 {
+				N_10000 = i
+				N_5000 = j
+				N_1000 = k
+				fmt.Println(N_10000, N_5000, N_1000)
+				return
 			}
 		}
 	}
 
-	fmt.Println(string(sBytes))
+	fmt.Println("-1 -1 -1")
 }
