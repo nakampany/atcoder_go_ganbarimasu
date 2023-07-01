@@ -5,46 +5,36 @@ import (
 )
 
 func main() {
-	var n int
-	fmt.Scan(&n)
+	var n, m int
+	fmt.Scan(&n, &m)
 	a := make([]string, n)
 	for i := 0; i < n; i++ {
 		fmt.Scan(&a[i])
 	}
+	b := make([]string, m)
+	for i := 0; i < m; i++ {
+		fmt.Scan(&b[i])
+	}
+	price := make([]int, m+1)
+	for i := 0; i <= m; i++ {
+		fmt.Scan(&price[i])
+	}
 
-	found := false
+	value := 0
 
 	for i := 0; i < n; i++ {
-		for j := 0; j < n; j++ {
-			k := a[i]
-			l := a[j]
-			kaibun := k + l
-			if i == j {
-				continue
-			}
-
-			if isPalindrome(kaibun) {
+		found := false
+		for j := 0; j < m; j++ {
+			if a[i] == b[j] {
+				value += price[j+1]
 				found = true
 				break
 			}
 		}
-		if found {
-			break
+		if !found {
+			value += price[0]
 		}
 	}
 
-	if found {
-		fmt.Println("Yes")
-	} else {
-		fmt.Println("No")
-	}
-}
-
-func isPalindrome(kaibun string) bool {
-	for i := 0; i < len(kaibun)/2; i++ {
-		if kaibun[i] != kaibun[len(kaibun)-1-i] {
-			return false
-		}
-	}
-	return true
+	fmt.Println(value)
 }
