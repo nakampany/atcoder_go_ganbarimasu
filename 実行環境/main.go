@@ -24,13 +24,11 @@ func main() {
 			a[i][j] = val
 		}
 	}
-
 	type kv struct {
 		Key   int
-		Value float64
+		Value uint64
 	}
-	var ans []kv
-
+	a := make([]kv, n)
 	for i := 0; i < n; i++ {
 		ans = append(ans, kv{i, math.Floor(float64(a[i][0]) * math.Pow(10, 100) / float64(a[i][0]+a[i][1]))})
 	}
@@ -39,12 +37,15 @@ func main() {
 		return ans[i].Value > ans[j].Value
 	})
 
-	var output []int
-	for _, v := range ans {
-		output = append(output, v.Key+1)
+	var value uint64
+	for _, v := range a {
+		value += v.Value
 	}
-	for _, num := range output {
-		fmt.Print(num, " ")
+	for i := 0; i < n; i++ {
+		if value <= uint64(k) {
+			fmt.Println(i + 1)
+			break
+		}
+		value -= a[i].Value
 	}
-	fmt.Println()
 }
