@@ -6,36 +6,30 @@ import (
 )
 
 func main() {
-	var n int
-	fmt.Scan(&n)
-	a := make([][]int, n)
-	for i := 0; i < n; i++ {
-		a[i] = make([]int, 2)
-		for j := 0; j < 2; j++ {
-			fmt.Scan(&a[i][j])
-		}
-	}
-
+	var n, k int
+	fmt.Scan(&n, &k)
 	type kv struct {
 		Key   int
-		Value float64
+		Value uint64
 	}
-	var ans []kv
-
+	a := make([]kv, n)
 	for i := 0; i < n; i++ {
-		ans = append(ans, kv{i, float64(a[i][0]) / float64(a[i][0]+a[i][1])})
+		fmt.Scan(&a[i].Key, &a[i].Value)
 	}
 
-	sort.Slice(ans, func(i, j int) bool {
-		return ans[i].Value > ans[j].Value
+	sort.SliceStable(a, func(i, j int) bool {
+		return a[i].Key < a[j].Key
 	})
 
-	var output []int
-	for _, v := range ans {
-		output = append(output, v.Key+1)
+	var value uint64
+	for _, v := range a {
+		value += v.Value
 	}
-	for _, num := range output {
-		fmt.Print(num, " ")
+	for i := 0; i < n; i++ {
+		if value <= uint64(k) {
+			fmt.Println(i + 1)
+			break
+		}
+		value -= a[i].Value
 	}
-	fmt.Println()
 }
