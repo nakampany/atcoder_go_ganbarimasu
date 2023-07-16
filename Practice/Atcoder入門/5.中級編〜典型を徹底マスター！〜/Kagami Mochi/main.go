@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 func main() {
@@ -11,6 +12,8 @@ func main() {
 	for i := 0; i < n; i++ {
 		fmt.Scan(&a[i])
 	}
+
+	sort.SliceStable(a, func(i, j int) bool { return a[i] < a[j] })
 
 	fmt.Println(a)
 
