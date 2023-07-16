@@ -5,24 +5,13 @@ import (
 )
 
 func main() {
-	var n, y int
-	fmt.Scan(&n, &y)
-
-	check := false
-
-	for i := 0; i <= n; i++ {
-		for j := 0; j <= n-i; j++ {
-			k := n - i - j
-			if 10000*i+5000*j+1000*k == y {
-				fmt.Println(i, j, k)
-				check = true
-				return
-			}
-		}
+	var n int
+	fmt.Scan(&n)
+	a := make([]int, n)
+	for i := 0; i < n; i++ {
+		fmt.Scan(&a[i])
 	}
 
-	if !check {
-		fmt.Println(-1, -1, -1)
-	}
+	fmt.Println(a)
 
 }
