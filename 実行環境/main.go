@@ -18,14 +18,6 @@ func main() {
 		counts[a[i]]++
 	}
 
-	total := 0
-	for _, count := range counts {
-		if count > 1 {
-			total += count * (count - 1) / 2
-		}
-	}
-	fmt.Println(total)
-}
 
 // strings.Split(s, ""): "hello" を ["h", "e", "l", "l", "o"]
 // sort.Strings(slice): ["h", "e", "l", "l", "o"] -> ["e", "h", "l", "l", "o"] にソート
