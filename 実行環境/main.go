@@ -3,25 +3,27 @@ package main
 import (
 	"fmt"
 	"sort"
+	"strings"
 )
 
 func main() {
 	var n int
 	fmt.Scan(&n)
-	a := make([]int, n)
+	a := make([]string, n)
+	counts := make(map[string]int)
+
 	for i := 0; i < n; i++ {
 		fmt.Scan(&a[i])
+		a[i] = sortString(a[i])
+		counts[a[i]]++
 	}
 
-	sort.SliceStable(a, func(i, j int) bool { return a[i] < a[j] })
 
-	// 重複チェック
-	b := make(map[int]bool)
-	for _, i := range a {
-		b[i] = true
-	}
-	// map[6:true 8:true 10:true]
-
-	fmt.Println(len(b))
-
+// strings.Split(s, ""): "hello" を ["h", "e", "l", "l", "o"]
+// sort.Strings(slice): ["h", "e", "l", "l", "o"] -> ["e", "h", "l", "l", "o"] にソート
+// strings.Join(slice, ""): ソートされた文字列のスライスを一つの文字列に結合("ehllo")
+func sortString(s string) string {
+	slice := strings.Split(s, "")
+	sort.Strings(slice)
+	return strings.Join(slice, "")
 }
