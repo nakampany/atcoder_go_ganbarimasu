@@ -1,37 +1,55 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"sort"
+	"os"
+	"strconv"
 	"strings"
 )
 
 func main() {
-	var n int
-	fmt.Scan(&n)
-	a := make([]string, n)
-	counts := make(map[string]int)
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	split := strings.Split(scanner.Text(), " ")
+	N, _ := strconv.Atoi(split[0])
 
-	for i := 0; i < n; i++ {
-		fmt.Scan(&a[i])
-		a[i] = sortString(a[i])
-		counts[a[i]]++
+	P := make([]int, N)
+	C := make([]int, N)
+	F := make([][]string, N)
+
+	for i := 0; i < N; i++ {
+		scanner.Scan()
+		split = strings.Split(scanner.Text(), " ")
+
+		P[i], _ = strconv.Atoi(split[0])
+		C[i], _ = strconv.Atoi(split[1])
+
+		F[i] = split[2:]
 	}
 
-	total := 0
-	for _, count := range counts {
-		if count > 1 {
-			total += count * (count - 1) / 2
+	ans := false
+	for i := 0; i < N; i++ {
+		for j := 0; j < N; j++ {
+			ans = ans || (P[i] >= P[j] && isSuperset(F[j], F[i]) && (P[i] > P[j] || len(F[j]) > len(F[i])))
 		}
 	}
-	fmt.Println(total)
+	if ans {
+		fmt.Println("Yes")
+	} else {
+		fmt.Println("No")
+	}
 }
 
-// strings.Split(s, ""): "hello" を ["h", "e", "l", "l", "o"]
-// sort.Strings(slice): ["h", "e", "l", "l", "o"] -> ["e", "h", "l", "l", "o"] にソート
-// strings.Join(slice, ""): ソートされた文字列のスライスを一つの文字列に結合("ehllo")
-func sortString(s string) string {
-	slice := strings.Split(s, "")
-	sort.Strings(slice)
-	return strings.Join(slice, "")
+func isSuperset(set1, set2 []string) bool {
+	mapSet1 := make(map[string]bool)
+	for _, val := range set1 {
+		mapSet1[val] = true
+	}
+	for _, val := range set2 {
+		if !mapSet1[val] {
+			return false
+		}
+	}
+	return true
 }

@@ -1,33 +1,55 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strconv"
+	"strings"
 )
 
 func main() {
-	var n, m int
-	fmt.Scan(&n, &m)
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	split := strings.Split(scanner.Text(), " ")
+	N, _ := strconv.Atoi(split[0])
 
-	a := make([][]int, n)
-	for i := 0; i < n; i++ {
-		a[i] = make([]int, m+2)
-		fmt.Scan(&a[i][0])
+	P := make([]int, N)
+	C := make([]int, N)
+	F := make([][]string, N)
 
-		var num int
-		fmt.Scan(&num)
-		for j := 1; j <= num; j++ {
-			fmt.Scan(&a[i][j])
-		}
-		for j := num + 1; j < m+2; j++ {
-			a[i][j] = 0
-		}
+	for i := 0; i < N; i++ {
+		scanner.Scan()
+		split = strings.Split(scanner.Text(), " ")
+
+		P[i], _ = strconv.Atoi(split[0])
+		C[i], _ = strconv.Atoi(split[1])
+
+		F[i] = split[2:]
 	}
 
-	// Print the array to check
-	for i := 0; i < n; i++ {
-		for j := 0; j < 11; j++ {
-			fmt.Print(a[i][j], " ")
+	ans := false
+	for i := 0; i < N; i++ {
+		for j := 0; j < N; j++ {
+			ans = ans || (P[i] >= P[j] && isSuperset(F[j], F[i]) && (P[i] > P[j] || len(F[j]) > len(F[i])))
 		}
-		fmt.Println()
 	}
+	if ans {
+		fmt.Println("Yes")
+	} else {
+		fmt.Println("No")
+	}
+}
+
+func isSuperset(set1, set2 []string) bool {
+	mapSet1 := make(map[string]bool)
+	for _, val := range set1 {
+		mapSet1[val] = true
+	}
+	for _, val := range set2 {
+		if !mapSet1[val] {
+			return false
+		}
+	}
+	return true
 }
