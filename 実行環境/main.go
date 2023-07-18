@@ -9,19 +9,24 @@ import (
 func main() {
 	var n int
 	fmt.Scan(&n)
-	a := make([]string, n)
-	counts := make(map[string]int)
 
+	a := make([]string, n)
 	for i := 0; i < n; i++ {
 		fmt.Scan(&a[i])
 		a[i] = sortString(a[i])
-		counts[a[i]]++
 	}
 
+	count := make(map[string]bool)
+	for _, i := range a {
+		count[i] = true
+	}
 
-// strings.Split(s, ""): "hello" を ["h", "e", "l", "l", "o"]
-// sort.Strings(slice): ["h", "e", "l", "l", "o"] -> ["e", "h", "l", "l", "o"] にソート
-// strings.Join(slice, ""): ソートされた文字列のスライスを一つの文字列に結合("ehllo")
+	fmt.Println(count)
+
+	// total := len(count) * (len(count) - 1) / 2
+	// fmt.Println(total)
+}
+
 func sortString(s string) string {
 	slice := strings.Split(s, "")
 	sort.Strings(slice)

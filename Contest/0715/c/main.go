@@ -21,7 +21,10 @@ func main() {
 		count[i] = true
 	}
 
-	fmt.Println(len(count))
+	fmt.Println(count)
+
+	// total := len(count) * (len(count) - 1) / 2
+	// fmt.Println(total)
 }
 
 func sortString(s string) string {
