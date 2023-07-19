@@ -17,6 +17,7 @@ func main() {
 	}
 
 	count := make(map[string]bool)
+
 	for _, i := range a {
 		count[i] = true
 	}
