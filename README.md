@@ -13,3 +13,12 @@ AtcoderをGolangで書いていくよ
 		fmt.Scan(&a[i])
 	}
 ```
+```go
+	s := bufio.NewScanner(os.Stdin)
+	a := make([]kv, n)
+	for i := 0; i < n; i++ {
+		s.Scan()
+		line := s.Text()
+		fmt.Sscanf(line, "%d %d", &a[i].Key, &a[i].Value)
+	}
+```
