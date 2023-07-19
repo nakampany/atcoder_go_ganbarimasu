@@ -7,6 +7,7 @@ AtcoderをGolangで書いていくよ
 	fmt.Scan(&n)
 ```
 
+
 ```go
 	a := make([]string, n)
 	for i := 0; i < n; i++ {
