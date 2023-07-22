@@ -2,33 +2,27 @@ package main
 
 import (
 	"fmt"
-	"sort"
-	"strings"
 )
 
 func main() {
-	var n int
-	fmt.Scan(&n)
+	var n, m int
+	fmt.Scan(&n, &m)
 
-	a := make([]string, n)
+	a := make([][]int, n)
 	for i := 0; i < n; i++ {
-		fmt.Scan(&a[i])
-		a[i] = sortString(a[i])
+		var s string
+		fmt.Scan(&s)
+		a[i] = make([]int, m)
+		for j := 0; j < m; j++ {
+			if s[j] == '#' {
+				a[i][j] = 1
+			} else {
+				a[i][j] = 0
+			}
+		}
 	}
 
-	count := make(map[string]bool)
-	for _, i := range a {
-		count[i] = true
+	for _, row := range a {
+		fmt.Println(row)
 	}
-
-	fmt.Println(count)
-
-	// total := len(count) * (len(count) - 1) / 2
-	// fmt.Println(total)
-}
-
-func sortString(s string) string {
-	slice := strings.Split(s, "")
-	sort.Strings(slice)
-	return strings.Join(slice, "")
 }
