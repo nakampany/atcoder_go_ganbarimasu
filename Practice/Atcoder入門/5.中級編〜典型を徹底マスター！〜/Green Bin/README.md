@@ -1,3 +1,5 @@
+# バケット、連想配列
+
 ### strings.Split(s, ""): "hello" を ["h", "e", "l", "l", "o"]
 
 ### sort.Strings(slice): ["h", "e", "l", "l", "o"] -> ["e", "h", "l", "l", "o"] にソート
