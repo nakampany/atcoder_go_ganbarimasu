@@ -14,7 +14,7 @@ func main() {
 		var s string
 		fmt.Scan(&s)
 		for j := 0; j < n; j++ {
-			a[i][j], _ = strconv.Atoi(string(s[j]))
+			a[i][j], _ = strconv.Atoi(string(s[j])) // 文字列の特定の文字を整数に変換する操作
 		}
 	}
 
