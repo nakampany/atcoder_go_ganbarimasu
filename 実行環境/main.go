@@ -5,26 +5,24 @@ import (
 )
 
 func main() {
-	var n, q int
-	fmt.Scan(&n, &q)
+	var n, m int
+	fmt.Scan(&n, &m)
 
-	var s string
-	fmt.Scan(&s)
-
-	// 累積和
-	acc := make([]int, n+1)
-	for i := 0; i < n-1; i++ {
-		if s[i] == 'A' && s[i+1] == 'C' {
-			acc[i+2] = acc[i+1] + 1
-		} else {
-			acc[i+2] = acc[i+1]
+	a := make([][]int, n)
+	for i := 0; i < n; i++ {
+		var s string
+		fmt.Scan(&s)
+		a[i] = make([]int, m)
+		for j := 0; j < m; j++ {
+			if s[j] == '#' {
+				a[i][j] = 1
+			} else {
+				a[i][j] = 0
+			}
 		}
 	}
 
-	// クエリ
-	for i := 0; i < q; i++ {
-		var l, r int
-		fmt.Scan(&l, &r)
-		fmt.Println(acc[r] - acc[l-1])
+	for _, row := range a {
+		fmt.Println(row)
 	}
 }
