@@ -126,4 +126,3 @@ numbers := []int{}
 
 	fmt.Println(points)
 ```
-
