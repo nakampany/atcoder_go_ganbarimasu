@@ -4,7 +4,7 @@
 
 ## Grid Repainting 幅優先探索
 
-## 白昼夢/Daydream 動的計面法
+## 白昼夢 Daydream 動的計面法
 
 ## Boxes and Candies 貪欲法
 

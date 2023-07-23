@@ -20,7 +20,9 @@
 
 ## DoubleCamelCase Sort 区間分割
 
-## GeT AC グラフ 累積和
+## GeT AC 累積和
+
+## スプリンクラー グラフ
 
 ## Fairness 周期性
 
