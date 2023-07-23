@@ -5,24 +5,30 @@ import (
 )
 
 func main() {
-	var n, m int
-	fmt.Scan(&n, &m)
+	var n, q int
+	fmt.Scan(&n, &q)
 
-	a := make([][]int, n)
-	for i := 0; i < n; i++ {
-		var s string
-		fmt.Scan(&s)
-		a[i] = make([]int, m)
-		for j := 0; j < m; j++ {
-			if s[j] == '#' {
-				a[i][j] = 1
-			} else {
-				a[i][j] = 0
-			}
+	var s string
+	fmt.Scan(&s)
+
+	acc := make([]int, n+1)
+	for i := 1; i < n; i++ {
+		// i番目にACがあるかどうか
+		// ACがあるなら1、ないなら0
+		if s[i-1] == 'A' && s[i] == 'C' {
+			acc[i] = acc[i-1] + 1
+		} else {
+			acc[i] = acc[i-1]
 		}
 	}
 
-	for _, row := range a {
-		fmt.Println(row)
+	// fmt.Println(acc)
+	// ACACTACG
+	// [0 1 1 2 2 2 3 3 0]
+
+	for i := 0; i < q; i++ {
+		var l, r int
+		fmt.Scan(&l, &r)
+		fmt.Println(acc[r-1] - acc[l-1])
 	}
 }
