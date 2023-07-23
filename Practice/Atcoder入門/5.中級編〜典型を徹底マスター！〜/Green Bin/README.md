@@ -27,14 +27,15 @@ n(n-1)/2
 nC2
 ```
 
-- ABC 143 C - Slimes
-- ABC 019B - 高橋 1300 くんと文字列圧縮当
-- ABC 139 C - Lower 300
-- ABC 116 C - Grand Garden
-- AGC 026 A - Colorful Slimes 2
-- AGC 040 A - ><
-- AGC 013 A - Sorted Arrays
-- AGC 039 A - Connection and Disconnection
-- ABC 136 D - Gathering Children
-- AGC 016 A - Shrinking
-- 競プロ典型 90 問 084 - There are two types of characters (\* 3)
+- ABC 164 C - gacha
+- ABC 154 C - Distinct or Not
+- ABC 118 B - Foods Loved by Everyone
+- ABC 081 C - Not so Diverse
+- 競プロ典型 90 問 027 Sign Up Requests (# 2)
+- ABC 155 C - Poll
+- ABC 073 C - Write and Erase
+- ABC 082 C - Good Sequence
+- ABC 058C - 怪文書
+- ABC 206 C - Swappable
+- ABC 200 C - Ringo's Favorite Numbers 2
+- 競プロ典型 90 間 046 - I Love 46 (\* 3)
