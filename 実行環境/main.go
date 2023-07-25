@@ -1,31 +1,51 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
 
 func main() {
-	var a, b, c, k int
-	fmt.Scan(&a, &b, &c, &k)
+	var n int
+	fmt.Scan(&n)
 
-	for i := 0; i < k; i++ {
-		a, b, c = sum_number(a, b, c)
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	inputSlice := strings.Fields(scanner.Text())
+	var a []int64
+	for _, v := range inputSlice {
+		num, _ := strconv.Atoi(v)
+		a = append(a, int64(num))
 	}
-
-	ans := a - b
-
-	if ans > 1e18 {
-		fmt.Println("Unfair")
+	numMinus := 0
+	mi := int64(1 << 60)
+	sum := int64(0)
+	for i := 0; i < n; i++ {
+		if a[i] < 0 {
+			numMinus++
+		}
+		chmin(&mi, abs(a[i]))
+		sum += abs(a[i])
+	}
+	if numMinus%2 == 0 {
+		fmt.Println(sum)
 	} else {
-		fmt.Println(ans)
+		fmt.Println(sum - mi*2)
 	}
 }
 
-func sum_number(a, b, c int) (int, int, int) {
-	tmp_a := a
-	tmp_b := b
-	tmp_c := c
-	a = tmp_c + tmp_b
-	b = tmp_a + tmp_c
-	c = tmp_b + tmp_a
+func abs(n int64) int64 {
+	if n < 0 {
+		return -n
+	}
+	return n
+}
 
-	return a, b, c
+func chmin(a *int64, b int64) {
+	if *a > b {
+		*a = b
+	}
 }
