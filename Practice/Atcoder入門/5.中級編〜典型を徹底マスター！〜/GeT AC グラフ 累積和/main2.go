@@ -13,10 +13,12 @@ func main() {
 
 	acc := make([]int, n+1)
 	for i := 1; i < n; i++ {
+		// i番目にACがあるかどうか
+		// ACがあるなら1、ないなら0
 		if s[i-1] == 'A' && s[i] == 'C' {
-			acc[i] = acc[i-1] + 1
+			acc[i] = acc[i-1] + 1 // 1
 		} else {
-			acc[i] = acc[i-1]
+			acc[i] = acc[i-1] // 0
 		}
 	}
 
