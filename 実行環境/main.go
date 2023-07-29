@@ -4,66 +4,56 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
+	"strconv"
 	"strings"
 )
 
 func main() {
-	var n, d int
-	fmt.Scan(&n, &d)
+	var n, m int
+	fmt.Scan(&n, &m)
 
 	scanner := bufio.NewScanner(os.Stdin)
 
-	cal := make([][]bool, n)
-	for i := range cal {
-		cal[i] = make([]bool, d)
+	scanner.Scan()
+	inputSliceA := strings.Fields(scanner.Text())
+	listA := make([]int, n)
+	for i, v := range inputSliceA {
+		num, _ := strconv.Atoi(v)
+		listA[i] = num
 	}
+	sort.Ints(listA)
 
-	for i := 0; i < n; i++ {
-		scanner.Scan()
-		line := scanner.Text()
-		for j, char := range strings.Split(line, "") {
-			if char == "o" {
-				cal[i][j] = true
-			}
+	scanner.Scan()
+	inputSliceB := strings.Fields(scanner.Text())
+	listB := make([]int, m)
+	for i, v := range inputSliceB {
+		num, _ := strconv.Atoi(v)
+		listB[i] = num
+	}
+	sort.Ints(listB)
+
+	j := make([]int, 0)
+	mMap := make(map[int]int)
+
+	for _, a := range listA {
+		if _, ok := mMap[a]; !ok {
+			j = append(j, a)
+			mMap[a] = a
 		}
 	}
-
-	var count []int
-
-	nRows := len(cal)
-	nCols := len(cal[0])
-
-	for j := 0; j < nCols; j++ {
-		allTrue := true
-		for i := 0; i < nRows; i++ {
-			if !cal[i][j] {
-				allTrue = false
-				break
-			}
-		}
-		if allTrue {
-			count = append(count, j)
+	for _, b := range listB {
+		if _, ok := mMap[b+1]; !ok {
+			j = append(j, b+1)
+			mMap[b+1] = b + 1
 		}
 	}
+	sort.Ints(j)
 
-	var count1 int
-	maxCount := 0
-
-	if len(count) == 0 {
-		fmt.Println(0)
-		return
-	}
-
-	for i := 1; i < len(count); i++ {
-		if count[i]-count[i-1] == 1 {
-			count1++
-			if count1 > maxCount {
-				maxCount = count1
-			}
-		} else {
-			count1 = 0
+	for _, num := range j {
+		if sort.Search(len(listA), func(i int) bool { return listA[i] >= num }) >= (m - sort.Search(len(listB), func(i int) bool { return listB[i] >= num })) {
+			fmt.Print(num)
+			break
 		}
 	}
-
-	fmt.Println(maxCount + 1)
 }

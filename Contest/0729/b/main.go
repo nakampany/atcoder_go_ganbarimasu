@@ -1,69 +1,55 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
 )
 
 func main() {
-	var n, d int
-	fmt.Scan(&n, &d)
-
-	scanner := bufio.NewScanner(os.Stdin)
-
-	cal := make([][]bool, n)
-	for i := range cal {
-		cal[i] = make([]bool, d)
-	}
-
+	var n, m int
+	var s []string
+	fmt.Scanf("%d %d", &n, &m)
 	for i := 0; i < n; i++ {
-		scanner.Scan()
-		line := scanner.Text()
-		for j, char := range strings.Split(line, "") {
-			if char == "o" {
-				cal[i][j] = true
+		var tmp string
+		fmt.Scanf("%s", &tmp)
+		s = append(s, tmp)
+	}
+
+	for i := 0; i < (n - 8); i++ {
+		for j := 0; j < (m - 8); j++ {
+			var flag bool = true
+			// 左上
+			if s[i][j] != '#' || s[i][j+1] != '#' || s[i][j+2] != '#' || s[i][j+3] != '.' {
+				flag = false
+			}
+			if s[i+1][j] != '#' || s[i+1][j+1] != '#' || s[i+1][j+2] != '#' || s[i+1][j+3] != '.' {
+				flag = false
+			}
+			if s[i+2][j] != '#' || s[i+2][j+1] != '#' || s[i+2][j+2] != '#' || s[i+2][j+3] != '.' {
+				flag = false
+			}
+
+			if s[i+3][j] != '.' || s[i+3][j+1] != '.' || s[i+3][j+2] != '.' || s[i+3][j+3] != '.' {
+				flag = false
+			}
+
+			// 右下
+			if s[i+5][j+5] != '.' || s[i+5][j+6] != '.' || s[i+5][j+7] != '.' || s[i+5][j+8] != '.' {
+				flag = false
+			}
+			if s[i+6][j+5] != '.' || s[i+6][j+6] != '#' || s[i+6][j+7] != '#' || s[i+6][j+8] != '#' {
+				flag = false
+			}
+			if s[i+7][j+5] != '.' || s[i+7][j+6] != '#' || s[i+7][j+7] != '#' || s[i+7][j+8] != '#' {
+				flag = false
+			}
+
+			if s[i+8][j+5] != '.' || s[i+8][j+6] != '#' || s[i+8][j+7] != '#' || s[i+8][j+8] != '#' {
+				flag = false
+			}
+
+			if flag {
+				fmt.Printf("%d %d\n", i+1, j+1)
 			}
 		}
 	}
-
-	var count []int
-
-	nRows := len(cal)
-	nCols := len(cal[0])
-
-	for j := 0; j < nCols; j++ {
-		allTrue := true
-		for i := 0; i < nRows; i++ {
-			if !cal[i][j] {
-				allTrue = false
-				break
-			}
-		}
-		if allTrue {
-			count = append(count, j)
-		}
-	}
-
-	var count1 int
-	maxCount := 0
-
-	if len(count) == 0 {
-		fmt.Println(0)
-		return
-	}
-
-	for i := 1; i < len(count); i++ {
-		if count[i]-count[i-1] == 1 {
-			count1++
-			if count1 > maxCount {
-				maxCount = count1
-			}
-		} else {
-			count1 = 0
-		}
-	}
-
-	fmt.Println(maxCount + 1)
 }
