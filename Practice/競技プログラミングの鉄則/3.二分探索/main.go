@@ -11,6 +11,7 @@ var a = []int{1, 14, 32, 51, 51, 51, 243, 419, 750, 910}
 
 // key の値を持つ要素のインデックスを返す (存在しない場合は -1)
 func binarySearch(key int) int {
+	// [left, right) は a[left], a[left+1], ..., a[right-1] を表す
 	left, right := 0, len(a)-1 // 配列 a の左端と右端
 	for right >= left {
 		mid := left + (right-left)/2 // 区間の真ん中
@@ -39,7 +40,7 @@ func main() {
 	fmt.Println("Start Game!")
 
 	// Aさんの年齢の候補を表す区間を、[left, right) と表す
-	// Aさんは、left 歳以上 right 歳未満、right 歳自体は候補に含まれないことに注意
+	// right 歳未満、right 歳自体は候補に含まれないことに注意
 	left, right := 20, 36
 
 	reader := bufio.NewReader(os.Stdin) // 入力を読み取るためのreader

@@ -17,6 +17,10 @@
 - 二分探索
   https://qiita.com/drken/items/97e37dd6143e33a64c8c
 - しゃくとり法
+長さnの数列a1, a2,..., anにおいて
+「条件」を満たす区間 (連続する部分列) のうち、最小の長さを求めよ
+「条件」を満たす区間 (連続する部分列) のうち、最大の長さを求めよ
+「条件」を満たす区間 (連続する部分列) を数え上げよ
   https://qiita.com/drken/items/ecd1a472d3a0e7db8dce
 - 半分全列挙
   https://qiita.com/e869120/items/25cb52ba47be0fd418d6
