@@ -10,50 +10,27 @@ import (
 )
 
 func main() {
-	var n, m int
-	fmt.Scan(&n, &m)
+	var n int
+	fmt.Scan(&n)
 
 	scanner := bufio.NewScanner(os.Stdin)
-
 	scanner.Scan()
-	inputSliceA := strings.Fields(scanner.Text())
-	listA := make([]int, n)
-	for i, v := range inputSliceA {
-		num, _ := strconv.Atoi(v)
-		listA[i] = num
+	inputSlice := strings.Fields(scanner.Text())
+	var A []uint
+	for _, v := range inputSlice {
+		num, _ := strconv.ParseUint(v, 10, 32)
+		A = append(A, uint(num))
 	}
-	sort.Ints(listA)
 
-	scanner.Scan()
-	inputSliceB := strings.Fields(scanner.Text())
-	listB := make([]int, m)
-	for i, v := range inputSliceB {
-		num, _ := strconv.Atoi(v)
-		listB[i] = num
-	}
-	sort.Ints(listB)
+	sort.Slice(A, func(i, j int) bool { return A[i] < A[j] })
 
-	j := make([]int, 0)
-	mMap := make(map[int]int)
+	var x uint
+	for A[n-1]-A[0] > 1 {
+		A[n-1] -= 1
+		A[0] += 1
+		sort.Slice(A, func(i, j int) bool { return A[i] < A[j] })
+		x += 1
+	}
 
-	for _, a := range listA {
-		if _, ok := mMap[a]; !ok {
-			j = append(j, a)
-			mMap[a] = a
-		}
-	}
-	for _, b := range listB {
-		if _, ok := mMap[b+1]; !ok {
-			j = append(j, b+1)
-			mMap[b+1] = b + 1
-		}
-	}
-	sort.Ints(j)
-
-	for _, num := range j {
-		if sort.Search(len(listA), func(i int) bool { return listA[i] >= num }) >= (m - sort.Search(len(listB), func(i int) bool { return listB[i] >= num })) {
-			fmt.Print(num)
-			break
-		}
-	}
+	fmt.Println(x)
 }
