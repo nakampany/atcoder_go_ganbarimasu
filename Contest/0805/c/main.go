@@ -16,21 +16,21 @@ func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	inputSlice := strings.Fields(scanner.Text())
-	var A []uint
+	var A []int
 	for _, v := range inputSlice {
-		num, _ := strconv.ParseUint(v, 10, 32)
-		A = append(A, uint(num))
+		num, _ := strconv.Atoi(v)
+		A = append(A, num)
 	}
 
-	sort.Slice(A, func(i, j int) bool { return A[i] < A[j] })
+	sort.Ints(A)
 
-	var x uint
+	var operations int
 	for A[n-1]-A[0] > 1 {
 		A[n-1] -= 1
 		A[0] += 1
-		sort.Slice(A, func(i, j int) bool { return A[i] < A[j] })
-		x += 1
+		sort.Ints(A)
+		operations += 1
 	}
 
-	fmt.Println(x)
+	fmt.Println(operations)
 }
