@@ -1,8 +1,10 @@
 # atcoder_go_ganbarimasu
-AtcoderをGolangで書いていくよ
+
+Atcoder を Golang で書いていくよ
 
 # 標準入力
-##	fmt.Scan(&a[i])
+
+## fmt.Scan(&a[i])
 
 ```go
 	var n int
@@ -10,12 +12,14 @@ AtcoderをGolangで書いていくよ
 ```
 
 ### slice
+
 ```go
 	a := make([]string, n)
 	for i := 0; i < n; i++ {
 		fmt.Scan(&a[i])
 	}
 ```
+
 ```go
 	a := make([][]int, m)
 	for i := 0; i < m; i++ {
@@ -25,6 +29,7 @@ AtcoderをGolangで書いていくよ
 		}
 	}
 ```
+
 ```go
 	a := make([][]int, n)
 	for i := 0; i < n; i++ {
@@ -36,6 +41,7 @@ AtcoderをGolangで書いていくよ
 		}
 	}
 ```
+
 ### map
 
 ```go
@@ -48,10 +54,11 @@ AtcoderをGolangで書いていくよ
 		person[name] = age
 	}
 ```
+
 ```go
-		type Person struct {
-			name string
-			age int
+	type Person struct {
+		name string
+		age int
 	}
 	person := []Person{}
 
@@ -65,7 +72,6 @@ AtcoderをGolangで書いていくよ
 ```
 
 ## scanner := bufio.NewScanner(os.Stdin)
-
 
 ```go
 	// int型の入力
@@ -82,18 +88,17 @@ AtcoderをGolangで書いていくよ
 
 	// fmt.Println(inputString)
 ```
+
 ### slice
 
 inputSlice := strings.Fields(scanner.Text())
-引数に与えられた文字列をスペースで分割し、結果の各部分を要素とする文字列のスライスを返します。この場合、scanner.Text()はScannerが最後に読み込んだ行（つまり、ユーザーからの入力）を返します。
+引数に与えられた文字列をスペースで分割し、結果の各部分を要素とする文字列のスライスを返します。この場合、scanner.Text()は Scanner が最後に読み込んだ行（つまり、ユーザーからの入力）を返します。
 
 整数の空のスライスを作成します。
 
 var numbers []int
 numbers := make([]int, 0)
 numbers := []int{}
-
-
 
 ```go
 	scanner := bufio.NewScanner(os.Stdin)
@@ -106,6 +111,7 @@ numbers := []int{}
 	}
 	fmt.Println(numbers)
 ```
+
 ### map
 
 ```go
@@ -126,4 +132,3 @@ numbers := []int{}
 
 	fmt.Println(points)
 ```
-
