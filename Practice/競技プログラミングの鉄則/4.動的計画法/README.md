@@ -63,6 +63,36 @@
    print(fib2(10)) # 89 を出力
    ```
 
+   go
+
+   ```go
+   package main
+
+   import "fmt"
+
+   var memo map[int]int = make(map[int]int)
+
+   func fib2(n int) int {
+      if n <= 1 {
+         return 1
+      }
+
+      // n 番目のフィボナッチ数がメモ化されているかをチェック
+      if result, found := memo[n]; found {
+         return result
+      }
+
+      // n 番目のフィボナッチ数を計算
+      memo[n] = fib2(n-1) + fib2(n-2)
+
+      return memo[n]
+   }
+
+   func main() {
+      fmt.Println(fib2(10))  // 89 を出力
+   }
+   ```
+
    - ボトムアップ: 分割統治法、漸化式ループ
 
    ```python
