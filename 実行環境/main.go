@@ -8,46 +8,49 @@ import (
 )
 
 func main() {
-	var n, m int
-	fmt.Scan(&n, &m)
-	var s string
-	fmt.Scan(&s)
-
-	x := make(map[string]int)
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Split(bufio.ScanWords)
-	for i := 1; i <= n; i++ {
+	scanner.Scan()
+	N, _ := strconv.Atoi(scanner.Text())
+
+	ms := make(map[int]int)
+	ss := make(map[int]int)
+
+	for i := 0; i < N; i++ {
 		scanner.Scan()
-		value, _ := strconv.Atoi(scanner.Text())
-		x[strconv.Itoa(i)] = value
+		f, _ := strconv.Atoi(scanner.Text())
+		scanner.Scan()
+		s, _ := strconv.Atoi(scanner.Text())
+
+		if val, exists := ms[f]; exists {
+			if s > val {
+				ss[f] = val
+				ms[f] = s
+			} else if s > ss[f] {
+				ss[f] = s
+			}
+		} else {
+			ms[f] = s
+			ss[f] = 0
+		}
 	}
 
-	s1 := []rune(s)
-	for i := 1; i <= m; i++ {
-		var positions []int
-		for key, val := range x {
-			if val == i {
-				position, _ := strconv.Atoi(key)
-				positions = append(positions, position-1)
+	max := 0
+	for f1, s1 := range ms {
+		for f2, s2 := range ms {
+			if f1 != f2 {
+				total := s1 + s2
+				if total > max {
+					max = total
+				}
+			} else {
+				total := s1 + ss[f2]/2
+				if total > max {
+					max = total
+				}
 			}
 		}
-		s1 = rotate(s1, positions)
 	}
 
-	fmt.Println(string(s1))
-}
-
-func rotate(s []rune, p []int) []rune {
-	n := len(p)
-	if n == 0 {
-		return s
-	}
-
-	last := s[p[n-1]]
-	for i := n - 1; i > 0; i-- {
-		s[p[i]] = s[p[i-1]]
-	}
-	s[p[0]] = last
-
-	return s
+	fmt.Println(max)
 }
