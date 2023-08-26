@@ -12,6 +12,7 @@ type Town struct {
 var maxDistance int
 var visited []bool
 
+// 深さ優先探索
 func dfs(graph map[int][]Town, current int, distance int) {
 	if distance > maxDistance {
 		maxDistance = distance
