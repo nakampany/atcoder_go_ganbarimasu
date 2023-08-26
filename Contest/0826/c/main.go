@@ -13,6 +13,13 @@ var maxDistance int
 var visited []bool
 
 // 深さ優先探索
+/*
+graph: このmapは、各町（town）から到達可能な他の町への道（road）を格納します。キーは町（整数）で、値はTown構造体のスライスです。
+current: 現在訪れている町。
+distance: 現在の町に到達するためにかかった距離。
+maxDistance: 最大距離。この変数はコード内で明示的には表示されていませんが、グローバル変数または関数の外部で定義されている可能性が高いです。
+visited: 各町が訪れられたかどうかを格納するmapまたは配列。このコードでは表示されていませんが、おそらくグローバル変数か関数の外部で定義されているでしょう。
+*/
 func dfs(graph map[int][]Town, current int, distance int) {
 	if distance > maxDistance {
 		maxDistance = distance
@@ -24,7 +31,7 @@ func dfs(graph map[int][]Town, current int, distance int) {
 			dfs(graph, Town.town, distance+Town.road)
 		}
 	}
-
+	// 再帰が戻ってきたら、現在の町（current）の訪問済みマークを解除します（これにより、他のパスでこの町を再訪することが可能になります）。
 	visited[current] = false
 }
 
