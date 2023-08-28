@@ -2,49 +2,22 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
-type Town struct {
-	town int
-	road int
-}
-
-var maxDistance int
-var visited []bool
-
-func dfs(graph map[int][]Town, current int, distance int) {
-	if distance > maxDistance {
-		maxDistance = distance
-	}
-	visited[current] = true
-
-	for _, Town := range graph[current] {
-		if !visited[Town.town] {
-			dfs(graph, Town.town, distance+Town.road)
-		}
-	}
-
-	visited[current] = false
-}
-
 func main() {
-	var N, M int
-	fmt.Scan(&N, &M)
-
-	x := make(map[int][]Town)
-	for i := 0; i < M; i++ {
-		var A, B, C int
-		fmt.Scan(&A, &B, &C)
-		x[A] = append(x[A], Town{town: B, road: C})
-		x[B] = append(x[B], Town{town: A, road: C})
+	var m int
+	fmt.Scan(&m)
+	x := make([]int, m)
+	for i := 0; i < m; i++ {
+		fmt.Scan(&x[i])
 	}
 
-	maxDistance = 0
-	visited = make([]bool, N+1)
+	// ｘを昇順にソート
+	sort.Slice(x, func(i, j int) bool {
+		return x[i] < x[j]
+	})
 
-	for i := 1; i <= N; i++ {
-		dfs(x, i, 0)
-	}
+	fmt.Println(x)
 
-	fmt.Println(maxDistance)
 }
