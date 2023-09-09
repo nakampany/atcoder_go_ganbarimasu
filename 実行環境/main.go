@@ -2,40 +2,63 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func main() {
-	var n, d, k int
-	var p int64
-	fmt.Scan(&n, &d, &p)
-
-	f := make([]int64, n)
-	s := make([]int64, n)
-	for i := 0; i < n; i++ {
-		fmt.Scan(&f[i])
+	var cells [9]int
+	for i := 0; i < 9; i++ {
+		fmt.Scan(&cells[i])
 	}
 
-	sort.Slice(f, func(i, j int) bool { return f[i] < f[j] })
+	row := [8][3]int{
+		{0, 1, 2}, // 上から 1 行目
+		{3, 4, 5}, // 上から 2 行目
+		{6, 7, 8}, // 上から 3 行目
+		{0, 3, 6}, // 左から 1 列目
+		{1, 4, 7}, // 左から 2 列目
+		{2, 5, 8}, // 左から 3 列目
+		{0, 4, 8}, // 左上から右下
+		{2, 4, 6}} // 右上から左下
 
-	s[0] = f[0]
-	for i := 0; i < n-1; i++ {
-		s[i+1] = s[i] + f[i+1]
+	// [0 1 2 3 4 5 6 7 8]
+	var order [9]int
+	for i := range order {
+		order[i] = i
 	}
 
-	k = (n + d - 1) / d
-	var ans int64 = p * int64(k)
+	notDisappoint, all := 0, 0
 
-	for i := 0; i < k; i++ {
-		ans = min(ans, s[int64(n)-1-int64(i)*int64(d)]+(p*int64(i)))
-	}
+	permutations(order[:], 0, len(order), func(arr []int) {
+		all++
+		disappointFlag := false
+		for _, r := range row {
+			a, b, c := r[0], r[1], r[2]
 
-	fmt.Println(ans)
+			if cells[a] == cells[b] && arr[a] < arr[c] && arr[b] < arr[c] {
+				disappointFlag = true
+			} else if cells[a] == cells[c] && arr[a] < arr[b] && arr[c] < arr[b] {
+				disappointFlag = true
+			} else if cells[b] == cells[c] && arr[b] < arr[a] && arr[c] < arr[a] {
+				disappointFlag = true
+			}
+		}
+		if !disappointFlag {
+			notDisappoint++
+		}
+	})
+
+	fmt.Println(float64(notDisappoint) / float64(all))
 }
 
-func min(a, b int64) int64 {
-	if a < b {
-		return a
+func permutations(arr []int, l int, r int, callback func([]int)) {
+	if l == r {
+		callback(arr)
+		return
 	}
-	return b
+
+	for i := l; i < r; i++ {
+		arr[l], arr[i] = arr[i], arr[l]
+		permutations(arr, l+1, r, callback)
+		arr[l], arr[i] = arr[i], arr[l]
+	}
 }
