@@ -11,16 +11,11 @@ func main() {
 	}
 
 	row := [8][3]int{
-		{0, 1, 2}, // 上から 1 行目
-		{3, 4, 5}, // 上から 2 行目
-		{6, 7, 8}, // 上から 3 行目
-		{0, 3, 6}, // 左から 1 列目
-		{1, 4, 7}, // 左から 2 列目
-		{2, 5, 8}, // 左から 3 列目
-		{0, 4, 8}, // 左上から右下
-		{2, 4, 6}} // 右上から左下
+		{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, // Horizontal rows
+		{0, 3, 6}, {1, 4, 7}, {2, 5, 8}, // Vertical rows
+		{0, 4, 8}, {2, 4, 6}, // Diagonals
+	}
 
-	// [0 1 2 3 4 5 6 7 8]
 	var order [9]int
 	for i := range order {
 		order[i] = i
@@ -47,7 +42,7 @@ func main() {
 		}
 	})
 
-	fmt.Println(float64(notDisappoint) / float64(all))
+	fmt.Printf("%.10f\n", float64(notDisappoint)/float64(all))
 }
 
 func permutations(arr []int, l int, r int, callback func([]int)) {
