@@ -2,56 +2,49 @@ package main
 
 import (
 	"fmt"
-	"math"
+	"sort"
 )
 
 func main() {
-	var M int
-	fmt.Scan(&M)
+	var n int
+	var x string
+	fmt.Scan(&n, &x)
 
-	S := make([]string, 3)
-	for i := 0; i < 3; i++ {
-		fmt.Scan(&S[i])
+	validSet := make(map[string]bool)
+
+	validSet[x] = true
+
+	for i := 0; i <= len(x); i++ {
+		for c := 'a'; c <= 'z'; c++ {
+			validSet[x[:i]+string(c)+x[i:]] = true
+		}
 	}
 
-	ans := math.MaxInt64
+	for i := 0; i < len(x); i++ {
+		validSet[x[:i]+x[i+1:]] = true
+	}
 
-	for i := 0; i < M; i++ {
-		for j := 0; j < M; j++ {
-			for k := 0; k < M/2; k++ {
-				if i != j && i != k && j != k && S[0][i%M] == S[1][j%M] && S[0][i%M] == S[2][k%M] {
-					ans = min(ans, max(i, j, k))
-				}
+	for i := 0; i < len(x); i++ {
+		for c := 'a'; c <= 'z'; c++ {
+			if x[i] != byte(c) {
+				validSet[x[:i]+string(c)+x[i+1:]] = true
 			}
 		}
 	}
 
-	if ans < math.MaxInt64 {
-		fmt.Println(ans)
-	} else {
-		fmt.Println(-1)
-	}
-}
-
-func max(i, j, k int) int {
-	if i > j {
-		if i > k {
-			return i
-		} else {
-			return k
-		}
-	} else {
-		if j > k {
-			return j
-		} else {
-			return k
+	ans := make([]int, 0)
+	for i := 0; i < n; i++ {
+		var s string
+		fmt.Scan(&s)
+		if validSet[s] {
+			ans = append(ans, i)
 		}
 	}
-}
+	sort.Ints(ans)
 
-func min(a, b int) int {
-	if a > b {
-		return b
+	fmt.Println(len(ans))
+	for _, v := range ans {
+		fmt.Printf("%d ", v+1)
 	}
-	return a
+	fmt.Println()
 }
