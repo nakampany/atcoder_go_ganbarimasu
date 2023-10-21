@@ -2,40 +2,38 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 func main() {
-	var n, m int
-	fmt.Scan(&n, &m)
+	var n int
+	fmt.Scan(&n)
 
-	x := make(map[int]map[int]bool)
-	for i := 1; i <= n; i++ {
-		x[i] = make(map[int]bool)
+	type Interval struct {
+		Start, End int64
+	}
+	intervals := make([]Interval, n)
+	for i := 0; i < n; i++ {
+		var t, d int64
+		fmt.Scan(&t, &d)
+		intervals[i] = Interval{t, t + d}
 	}
 
-	for i := 0; i < m; i++ {
-		var a, b int
-		fmt.Scan(&a, &b)
-		x[a][b] = true
-		for k, _ := range x[b] {
-			x[a][k] = true
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i].Start < intervals[j].Start
+	})
+
+	fmt.Println(intervals)
+
+	count := 0
+	var lastPrintedTime int64 = 0
+	for _, interval := range intervals {
+		if interval.Start < lastPrintedTime {
+			continue
 		}
-		for k, _ := range x {
-			if k != a && x[k][a] {
-				for l, _ := range x[a] {
-					x[k][l] = true
-				}
-			}
-		}
+		count++
+		lastPrintedTime = interval.End
 	}
 
-	strongest := -1
-	for i := 1; i <= n; i++ {
-		if len(x[i]) == n-1 {
-			strongest = i
-			break
-		}
-	}
-
-	fmt.Println(strongest)
+	fmt.Println(count)
 }
