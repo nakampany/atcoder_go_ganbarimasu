@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -16,21 +15,33 @@ func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	inputSlice := strings.Fields(scanner.Text())
-	var A []int
+	var A []uint
+	var total uint
 	for _, v := range inputSlice {
-		num, _ := strconv.Atoi(v)
-		A = append(A, num)
+		num, _ := strconv.ParseUint(v, 10, 64)
+		A = append(A, uint(num))
+		total += uint(num)
 	}
 
-	sort.Ints(A)
+	avg := total / uint(n)
+	remainder := total % uint(n)
 
-	var operations int
-	for A[n-1]-A[0] > 1 {
-		A[n-1] -= 1
-		A[0] += 1
-		sort.Ints(A)
-		operations += 1
+	var operations uint
+	for i := 0; i < n; i++ {
+		if uint(i) < uint((n)-int(remainder)) {
+			if A[i] > avg {
+				operations += A[i] - avg
+			} else if A[i] < avg {
+				operations += avg - A[i]
+			}
+		} else {
+			if A[i] > avg+1 {
+				operations += A[i] - avg - 1
+			} else if A[i] < avg+1 {
+				operations += avg + 1 - A[i]
+			}
+		}
 	}
 
-	fmt.Println(operations)
+	fmt.Println(operations / 2)
 }

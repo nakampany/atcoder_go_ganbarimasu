@@ -2,49 +2,40 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func main() {
-	var n int
-	var x string
-	fmt.Scan(&n, &x)
+	var n, m int
+	fmt.Scan(&n, &m)
 
-	validSet := make(map[string]bool)
+	x := make(map[int]map[int]bool)
+	for i := 1; i <= n; i++ {
+		x[i] = make(map[int]bool)
+	}
 
-	validSet[x] = true
-
-	for i := 0; i <= len(x); i++ {
-		for c := 'a'; c <= 'z'; c++ {
-			validSet[x[:i]+string(c)+x[i:]] = true
+	for i := 0; i < m; i++ {
+		var a, b int
+		fmt.Scan(&a, &b)
+		x[a][b] = true
+		for k, _ := range x[b] {
+			x[a][k] = true
 		}
-	}
-
-	for i := 0; i < len(x); i++ {
-		validSet[x[:i]+x[i+1:]] = true
-	}
-
-	for i := 0; i < len(x); i++ {
-		for c := 'a'; c <= 'z'; c++ {
-			if x[i] != byte(c) {
-				validSet[x[:i]+string(c)+x[i+1:]] = true
+		for k, _ := range x {
+			if k != a && x[k][a] {
+				for l, _ := range x[a] {
+					x[k][l] = true
+				}
 			}
 		}
 	}
 
-	ans := make([]int, 0)
-	for i := 0; i < n; i++ {
-		var s string
-		fmt.Scan(&s)
-		if validSet[s] {
-			ans = append(ans, i)
+	strongest := -1
+	for i := 1; i <= n; i++ {
+		if len(x[i]) == n-1 {
+			strongest = i
+			break
 		}
 	}
-	sort.Ints(ans)
 
-	fmt.Println(len(ans))
-	for _, v := range ans {
-		fmt.Printf("%d ", v+1)
-	}
-	fmt.Println()
+	fmt.Println(strongest)
 }
