@@ -13,6 +13,6 @@ func main() {
 	if n == 0 {
 		fmt.Println("3")
 	} else {
-		fmt.Println(PI100[:n+2]) // n+2 is because of the digit before the dot and n digits after the dot
+		fmt.Println(PI100[:n+2])
 	}
 }

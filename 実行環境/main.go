@@ -2,38 +2,57 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func main() {
 	var n int
+	var r, c string
 	fmt.Scan(&n)
+	fmt.Scan(&r, &c)
 
-	type Interval struct {
-		Start, End int64
-	}
-	intervals := make([]Interval, n)
-	for i := 0; i < n; i++ {
-		var t, d int64
-		fmt.Scan(&t, &d)
-		intervals[i] = Interval{t, t + d}
-	}
-
-	sort.Slice(intervals, func(i, j int) bool {
-		return intervals[i].Start < intervals[j].Start
-	})
-
-	fmt.Println(intervals)
-
-	count := 0
-	var lastPrintedTime int64 = 0
-	for _, interval := range intervals {
-		if interval.Start < lastPrintedTime {
-			continue
+	grid := make([][]rune, n)
+	for i := range grid {
+		grid[i] = make([]rune, n)
+		for j := range grid[i] {
+			grid[i][j] = '.'
 		}
-		count++
-		lastPrintedTime = interval.End
 	}
 
-	fmt.Println(count)
+	rowCounts := map[rune]int{'A': 0, 'B': 0, 'C': 0}
+	colCounts := map[rune]int{'A': 0, 'B': 0, 'C': 0}
+
+	for i := 0; i < n; i++ {
+		ri := rune(r[i])
+		ci := rune(c[i])
+		grid[i][int(ri-'A')] = ri
+		grid[int(ci-'A')][i] = ci
+		rowCounts[ri]++
+		colCounts[ci]++
+	}
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == '.' {
+				for _, char := range "ABC" {
+					if rowCounts[char] < n && colCounts[char] < n && grid[i][int(char-'A')] == '.' && grid[int(char-'A')][j] == '.' {
+						grid[i][j] = char
+						rowCounts[char]++
+						colCounts[char]++
+						break
+					}
+				}
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == '.' {
+				fmt.Println("No")
+				return
+			}
+		}
+	}
+	fmt.Println("Yes")
+	for i := 0; i < n; i++ {
+		fmt.Println(string(grid[i]))
+	}
 }
