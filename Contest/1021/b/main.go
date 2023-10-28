@@ -1,24 +1,21 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	var n int
-	fmt.Scan(&n)
+	var N int
+	fmt.Scan(&N)
 
-	for n%2 == 0 && n > 1 {
-		n /= 2
-	}
+	for {
+		hundreds := N / 100
+		tens := (N / 10) % 10
+		ones := N % 10
 
-	for n%3 == 0 && n > 1 {
-		n /= 3
-	}
+		if hundreds*tens == ones {
+			fmt.Println(N)
+			break
+		}
 
-	if n == 1 {
-		fmt.Println("Yes")
-	} else {
-		fmt.Println("No")
+		N++
 	}
 }
