@@ -22,7 +22,7 @@ func main() {
 	dx := []int{-1, -1, -1, 0, 0, 1, 1, 1}
 	dy := []int{-1, 0, 1, -1, 1, -1, 0, 1}
 
-	// dfs
+	// dfsかな
 	var dfs func(x, y int)
 	dfs = func(x, y int) {
 		if x < 0 || x >= h || y < 0 || y >= w || grid[x][y] == '.' || visit[x][y] {
