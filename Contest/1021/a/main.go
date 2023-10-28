@@ -5,9 +5,13 @@ import (
 )
 
 func main() {
-	var n, m string
-	fmt.Scan(&n, &m)
+	var x, y int
+	fmt.Scan(&x, &y)
+	d := y - x
 
-	// ｎさん付けをする
-	fmt.Printf("%s san\n", n)
+	if d >= -3 && d <= 2 {
+		fmt.Println("Yes")
+	} else {
+		fmt.Println("No")
+	}
 }
