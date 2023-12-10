@@ -2,40 +2,57 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func main() {
-	var N int
-	fmt.Scan(&N)
+	var n int
+	var r, c string
+	fmt.Scan(&n)
+	fmt.Scan(&r, &c)
 
-	A := make([]int, N)
-	for i := range A {
-		fmt.Scan(&A[i])
-	}
-
-	d := make(map[int][]int)
-	for i, a := range A {
-		d[a] = append(d[a], i)
-	}
-
-	ans := make([]int, N)
-	s := 0
-	var keys []int
-	for k := range d {
-		keys = append(keys, k)
-	}
-	sort.Sort(sort.Reverse(sort.IntSlice(keys)))
-
-	for _, v := range keys {
-		for _, i := range d[v] {
-			ans[i] = s
+	grid := make([][]rune, n)
+	for i := range grid {
+		grid[i] = make([]rune, n)
+		for j := range grid[i] {
+			grid[i][j] = '.'
 		}
-		s += v * len(d[v])
 	}
 
-	for _, v := range ans {
-		fmt.Print(v, " ")
+	rowCounts := map[rune]int{'A': 0, 'B': 0, 'C': 0}
+	colCounts := map[rune]int{'A': 0, 'B': 0, 'C': 0}
+
+	for i := 0; i < n; i++ {
+		ri := rune(r[i])
+		ci := rune(c[i])
+		grid[i][int(ri-'A')] = ri
+		grid[int(ci-'A')][i] = ci
+		rowCounts[ri]++
+		colCounts[ci]++
 	}
-	fmt.Println()
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == '.' {
+				for _, char := range "ABC" {
+					if rowCounts[char] < n && colCounts[char] < n && grid[i][int(char-'A')] == '.' && grid[int(char-'A')][j] == '.' {
+						grid[i][j] = char
+						rowCounts[char]++
+						colCounts[char]++
+						break
+					}
+				}
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == '.' {
+				fmt.Println("No")
+				return
+			}
+		}
+	}
+	fmt.Println("Yes")
+	for i := 0; i < n; i++ {
+		fmt.Println(string(grid[i]))
+	}
 }
